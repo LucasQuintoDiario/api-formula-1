@@ -1,0 +1,29 @@
+services:
+  api:
+    build: .
+    container_name: fastapi_f1
+    ports:
+      - "8000:8000"
+    environment:
+      - BBDD_HOST=mysql
+      - BBDD_USERNAME=root
+      - BBDD_PASSWORD=root
+      - BBDD_NAME=formula_1
+      - API_COHEHRE=tu_api_key
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_f1
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: formula_1
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:

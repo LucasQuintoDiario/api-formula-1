@@ -4,14 +4,39 @@ import datetime
 
 st.set_page_config(page_title="F1 Chatbot", page_icon="🏎️", layout="wide")
 
+st.markdown(
+    """
+    <style>
+    /* Fondo de toda la página */
+    .stApp {
+        background-color: #000000;
+    }
+    /* Color del texto */
+    h1, h2, h3, h4, h5, h6, p, div, span, label {
+        color: #FFFFFF;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+
+
 tabs = ["Inicio", "Chat F1", "Consultar Historial", "Obtener ID", "Eliminar Historial"]
 selected_tab = st.sidebar.radio("Navegación", tabs)
 
 API_URL = "http://localhost:8000"
 
 if selected_tab == "Inicio":
-    st.title("🏁 Bienvenido al Chatbot de Fórmula 1 🏎️")
-    st.write("Esta aplicación te permite interactuar con un chatbot experto en Fórmula 1. Aquí tienes un resumen de cómo funciona:")
+    st.markdown("""
+            <div style="position: relative; width: 100%; height: 0; padding-top: 25.0000%;
+ padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden;
+ border-radius: 8px; will-change: transform;">
+  <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;"
+    src="https://www.canva.com/design/DAGgq50rf6s/ENJAUZ3cv-gXrcPCrLef2A/view?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
+  </iframe>
+</div>
+""", unsafe_allow_html=True)
     
     response = requests.get(f"{API_URL}/getid/")
     if response.status_code == 200:

@@ -11,11 +11,13 @@ import pymysql
 import uuid
 import datetime
 
+
+
 host = os.getenv("BBDD_HOST")
 username = os.getenv("BBDD_USERNAME")
 password= os.getenv("BBDD_PASSWORD")
 database= os.getenv("BBDD_NAME")
-api_key_cohere = os.getenv("API_COHEHRE")
+api_key_cohere = os.getenv("API_COHERE")
 session_id = str(uuid.uuid4())
 
 app = FastAPI()
@@ -82,7 +84,7 @@ async def preguntar(request: PromptRequest):
         response = co.chat(
             model="command-r-plus-08-2024",
             messages=[
-                {"role": "system", "content": "Eres un experto en Formula 1 y respondes a las preguntas de manera muy sencilla para gente sin conocimiento de F1"},
+                {"role": "system", "content": "Eres un experto en Fórmula 1 y explicas conceptos de forma clara, breve y sencilla para personas sin conocimientos previos. Usa un tono amigable y directo, evitando tecnicismos complejos. Responde en pocas frases, centrándote en lo esencial."},
                 {"role": "user", "content": request.prompt}
             ],
         )
@@ -112,7 +114,11 @@ async def preguntar(request: PromptRequest):
 
 @app.get("/getid/")
 async def get_id():
-    return session_id
+    try:
+        return session_id
+    except Exception as e:
+        print("Error:", e)
+        raise HTTPException(status_code=500, detail=str("No se ha podido generar el ID."))
 
 @app.post("/consult/")
 async def consulta(history: ConversationRequest):

@@ -67,12 +67,12 @@ BBDD_USERNAME=tu_usuario
 BBDD_NAME=tu_base_de_datos
 ```
 
-### 3. Construir la imagen de Docker
+### 3. Descargar la imagen de Docker
 
-Asegúrate de tener Docker instalado en tu máquina. Luego, construye la imagen de Docker con el siguiente comando:
+Descarga la imagen de Docker con el siguiente comando:
 
 ```bash
-docker build -t lucasquintodiario/f1-api:latest .
+docker pull lucasquintodiario/api-formula-1:latest
 ```
 
 ### 4. Ejecutar el contenedor de Docker
